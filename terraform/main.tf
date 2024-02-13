@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-central-1"
+  region = var.aws_region
 }
 
 resource "aws_codestarconnections_connection" "github" {
@@ -215,7 +215,7 @@ resource "aws_iam_policy" "codestar_connections" {
     {
       "Effect": "Allow",
       "Action": "codestar-connections:UseConnection",
-      "Resource": "arn:aws:codestar-connections:us-east-1:586283906760:connection/0404ab44-9493-47d2-ab3f-5d847ac96a97"
+      "Resource": "*"
     }
   ]
 }
@@ -250,8 +250,11 @@ resource "aws_iam_role_policy_attachment" "s3" {
   policy_arn = aws_iam_policy.s3.arn
 }
 
+resource "random_pet" "bucket_suffix" {
+  length = 2
+  prefix = "techstarter"
+  
+}
 resource "aws_s3_bucket" "artifact_store" {
-  bucket = "my-artifact-store-random-name"
-# Remove the aws_s3_bucket_acl attribute
-# aws_s3_bucket_acl   = "private"
+  bucket = random_pet.bucket_suffix.id
 }
