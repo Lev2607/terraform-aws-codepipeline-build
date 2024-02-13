@@ -1,7 +1,13 @@
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "eu-central-1"
+}
+
 variable "github_owner" {
   description = "GitHub repository owner"
   type        = string
-  default = "tarasowski"
+  default = "Lev2607"
 }
 
 variable "github_repo" {
